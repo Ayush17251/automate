@@ -1,0 +1,45 @@
+
+
+<html>
+    <head>
+        <title>random</title>
+    </head>
+    <body>
+        <form id = "myform">
+            RISName : <br>
+            <input name="name" type="text" id="name" placeholder="Ris Name"><br>
+            RISCommand : <br>
+            <input name="command" type="text" id="command" placeholder="Instructions"><br>
+
+        </form>
+        <button onclick="submit()">submit</button>
+        <script>
+             var submit = function(){
+                var name = document.getElementById('name').value;
+                var command = document.getElementById('command').value;
+
+                var payload = {
+                    name: name,
+                    command: command
+                }
+
+                var xhttp = new XMLHttpRequest()
+                xhttp.open('post', '/ris', true);
+                xhttp.setRequestHeader("Content-type", "application/json");
+                xhttp.responseType = 'json';
+                xhttp.send(JSON.stringify(payload));
+                // xhttp.send((payload));
+
+                xhttp.onreadystatechange = function(){
+                    if(this.readyState == 4 && this.status == 200){
+                        // console.log(this.responseText)
+                        console.log(xhttp.response)
+                        document.getElementById("myform").reset();
+                    }
+                }
+
+                //console.log(email, payload);
+             }
+        </script>
+    </body>
+</html>
